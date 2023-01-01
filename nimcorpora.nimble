@@ -11,7 +11,7 @@ skipDirs      = @["examples"]
 # Tasks
 
 after install:
-  echo "Installing Corpora data..."
+  echo "\nInstalling Corpora data..."
   selfExec"r ./nimcorpora/install.nim"
 
 # Dependencies

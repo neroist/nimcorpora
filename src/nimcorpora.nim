@@ -87,7 +87,7 @@ proc update*(_: Corpora; output: bool = off) =
   ## Update Corpora data
 
   when defined(release):
-    updateRelease(_, output)
+    installCorporaData(getCurrentDir().parentDir, output)
   else:
     installCorporaData(currentSourcePath().parentDir(), output)
 
