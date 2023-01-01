@@ -2,7 +2,7 @@
 A Nim interface for Darius Kazemi's [Corpora](https://github.com/dariusk/corpora) project.
 
 
-[**Documentation**](https://neroist.github.io/nimcorpora/)
+[**Documentation**](https://neroist.github.io/nimcorpora/nimcorpora.html)
 
 Inspired by [pycorpora](https://github.com/aparrish/pycorpora).
 
