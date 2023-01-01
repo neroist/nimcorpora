@@ -1,0 +1,1 @@
+installCorporaData	nimcorpora/install.html#installCorporaData,string,bool	install: installCorporaData(dir: string = getCurrentDir(); output: bool = on)	

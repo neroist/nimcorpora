@@ -1,0 +1,16 @@
+Corpora	nimcorpora.html#Corpora	nimcorpora: Corpora	
+newCorpora	nimcorpora.html#newCorpora	nimcorpora: newCorpora(): Corpora	
+getCategories	nimcorpora.html#getCategories,Corpora	nimcorpora: getCategories(_: Corpora): seq[string]	
+categories	nimcorpora.html#categories,Corpora	nimcorpora: categories(_: Corpora): seq[string]	
+getSubcategories	nimcorpora.html#getSubcategories,Corpora	nimcorpora: getSubcategories(_: Corpora): seq[string]	
+getSubcategories	nimcorpora.html#getSubcategories,Corpora,string	nimcorpora: getSubcategories(_: Corpora; category: string): seq[string]	
+getSubcategories	nimcorpora.html#getSubcategories,Corpora,openArray[string]	nimcorpora: getSubcategories(_: Corpora; categories: openArray[string]): seq[seq[string]]	
+subcategories	nimcorpora.html#subcategories,Corpora	nimcorpora: subcategories(_: Corpora): seq[string]	
+getFile	nimcorpora.html#getFile,Corpora,string	nimcorpora: getFile(_: Corpora; path: string): JsonNode	
+getFile	nimcorpora.html#getFile,Corpora,string,string	nimcorpora: getFile(_: Corpora; category, subcategory: string): JsonNode	
+getFiles	nimcorpora.html#getFiles,Corpora,openArray[string]	nimcorpora: getFiles(_: Corpora; paths: openArray[string]): seq[JsonNode]	
+getFiles	nimcorpora.html#getFiles,Corpora,string	nimcorpora: getFiles(_: Corpora; category: string): seq[JsonNode]	
+getFilesByCategories	nimcorpora.html#getFilesByCategories,Corpora,openArray[string]	nimcorpora: getFilesByCategories(_: Corpora; categories: openArray[string]): seq[\n    seq[JsonNode]]	
+getFiles	nimcorpora.html#getFiles,Corpora,string,openArray[string]	nimcorpora: getFiles(_: Corpora; category: string; subcategories: openArray[string]): seq[\n    JsonNode]	
+updateRelease	nimcorpora.html#updateRelease,Corpora,bool	nimcorpora: updateRelease(_: Corpora; output: bool = off)	
+update	nimcorpora.html#update,Corpora,bool	nimcorpora: update(_: Corpora; output: bool = off)	
