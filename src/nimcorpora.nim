@@ -1,10 +1,12 @@
-import std/osproc
 import std/json
 import std/os
 
+import nimcorpora/install
 
-type 
+type
   Corpora* = ref object
+
+func tailTailDir(dir: string): string {.inline.} = dir.tailDir.tailDir
 
 
 proc newCorpora*(): Corpora =
@@ -17,7 +19,7 @@ proc newCorpora*(): Corpora =
 proc getCategories*(_: Corpora): seq[string] =
   ## Get all categories (directories) in the Corpora data.
 
-  for dir in walkDirs("../data/*"): result.add dir.tailDir
+  for dir in walkDirs("../data/*"): result.add dir.tailTailDir
 
 proc categories*(_: Corpora): seq[string] =
   ## Alias for `getCategories <#getCategories,Corpora>`_
@@ -29,16 +31,16 @@ proc categories*(_: Corpora): seq[string] =
 proc getSubcategories*(_: Corpora): seq[string] =
   ## Get all subcategories (a.k.a the json files in the data) under all categories
 
-  for file in walkDirRec("../data"): result.add file.tailDir().changeFileExt("")
+  for file in walkDirRec("../data"): result.add file.tailTailDir().changeFileExt("")
 
 proc getSubcategories*(_: Corpora; category: string): seq[string] =
-  ## Get all subcategories under `category` 
+  ## Get all subcategories under `category`
 
-  for file in walkDirRec("../data" / category): result.add file.tailDir().changeFileExt("")
+  for file in walkDirRec("../data" / category): result.add file.tailTailDir().changeFileExt("")
 
 proc getSubcategories*(_: Corpora; categories: openArray[string]): seq[seq[string]] =
-  ## Get all subcategories under `categories` 
-  
+  ## Get all subcategories under `categories`
+
   for category in categories: result.add _.getSubcategories(category)
 
 proc subcategories*(_: Corpora): seq[string] =
@@ -58,33 +60,35 @@ proc getFile*(_: Corpora; category, subcategory: string): JsonNode =
 
   _.getFile(category / subcategory)
 
-proc getFiles*(_: Corpora; paths: openArray[string]): seq[JsonNode] = 
+proc getFiles*(_: Corpora; paths: openArray[string]): seq[JsonNode] =
   ## Get multiple files by their paths.
 
   for path in paths: result.add _.getFile(path)
 
-proc getFiles*(_: Corpora; category: string): seq[JsonNode] = 
+proc getFiles*(_: Corpora; category: string): seq[JsonNode] =
   ## Get all files under `category`
 
   for subcategory in _.getSubcategories(category): result.add _.getFile(subcategory)
 
-proc getFiles*(_: Corpora; category: string; subcategories: openArray[string]): seq[JsonNode] =
+proc getFilesByCategories*(_: Corpora; categories: openArray[string]): seq[seq[JsonNode]] =
+  ## Get all files under `categories`.
+
+  for category in categories: result.add _.getFiles(category)
+
+proc getFiles*(_: Corpora; category: string; subcategories: openArray[
+    string]): seq[JsonNode] =
   ## Get multiple files from `subcategories` under `category`
 
   for subcategory in subcategories: result.add _.getFile(category / subcategory)
 
 # --- update/reinstall data ---
 
-proc update*(_: Corpora; output: bool = false) =
+proc update*(_: Corpora; output: bool = off) =
   ## Update Corpora data
 
-  let cwd = getCurrentDir() # past cwd
-  setCurrentDir currentSourcePath().parentDir() # switch to module dir to exec command
-
-  # execCmd results in output, execProcess does not
-  if output:
-    discard execCmd("nim r ./nimcorpora/install.nim")
+  when defined(release):
+    updateRelease(_, output)
   else:
-    discard execProcess("nim", args=["r", "./nimcorpora/install.nim"], options={poUsePath})
-  
-  setCurrentDir cwd # switch back to pase cwd
+    installCorporaData(currentSourcePath().parentDir(), output)
+
+export installCorporaData
