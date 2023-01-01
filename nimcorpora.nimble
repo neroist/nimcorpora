@@ -3,7 +3,7 @@
 version       = "0.1.0"
 author        = "Jasmine"
 description   = "A Nim interface for Darius Kazemi's Corpora Project."
-license       = "GPL-3.0-only"
+license       = "0BSD"
 srcDir        = "src"
 skipDirs      = @["examples"]
 
