@@ -2,7 +2,7 @@
 A Nim interface for Darius Kazemi's [Corpora](https://github.com/dariusk/corpora) project.
 
 ## Installation 
-Since at the moment, nimcorpora is not on nimble you can install it by its Github or Git link:
+Since at the moment nimcorpora is not on nimble you can install it by its Github or Git link:
 
 ```
 nimble install https://github.com/neroist/nimcorpora
