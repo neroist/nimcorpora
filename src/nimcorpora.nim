@@ -1,3 +1,5 @@
+import std/strformat
+import std/sugar
 import std/json
 import std/os
 
@@ -7,8 +9,9 @@ import private/common
 type
   Corpora* = ref object
 
-proc newCorpora*(): Corpora =
+func newCorpora*(): Corpora =
   ## Get a new Corpora object. Needed to access Corpora data.
+  ## Instead of this proc, you could also do `new Corpora` instead.
 
   new result
 
@@ -16,8 +19,12 @@ proc newCorpora*(): Corpora =
 
 proc getCategories*(_: Corpora): seq[string] =
   ## Get all categories (directories) in the Corpora data.
+  let data = "../data"
 
-  for dir in walkDirs("../data/*"): result.add dir.tailTailDir
+  for dir in walkDirRec("../data", yieldFilter={pcDir}, relative=true):
+    # if a dir has no json files in it, do not include it in the result
+    if collect(for file in walkFiles(fmt"{data / dir}/*.json"): file).len != 0:
+      result.add dir
 
 proc categories*(_: Corpora): seq[string] =
   ## Alias for `getCategories <#getCategories,Corpora>`_

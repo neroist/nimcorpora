@@ -10,16 +10,6 @@ import fab
 
 import ../private/common
 
-template withDir(dir: string, body: untyped): untyped =
-  let cwd = getCurrentDir()
-  if not dirExists(dir): createDir(dir)
-
-  setCurrentDir dir
-
-  body
-
-  setCurrentDir cwd
-
 proc installCorporaData*(dir: string = getCurrentDir(); output: bool = on) =
   ## Installs Corpora data into `dir`. `output` control's whether or not to 
   ## display output. `false` for no output, `true` for output
