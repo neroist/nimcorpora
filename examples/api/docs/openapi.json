@@ -75,7 +75,7 @@
       "get": {
         "responses": {
           "200": {
-            "description": "All directories in Corpora's data which hold data (Json files)",
+            "description": "All directories in Corpora's data which hold data (JSON files)",
             "content": {
               "application/json": {
                 "schema": {
