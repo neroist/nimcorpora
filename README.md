@@ -100,4 +100,7 @@ To install the data there, you can either use `installCorporaData()` or include 
 
 In addition, `update()`, by default, updates the data in the package's directory. When compiling a release build, `update()` instead updates the data in the `data/` directory. So, make sure to compile with `-d:release` when distributing so `update()` works correctly for distributing.
 
+## License
+Nimcorpora is licensed under the [BSD Zero clause license](/LICENSE) 🎉
+
 ###### Made with ❤️ with Nim
