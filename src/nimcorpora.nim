@@ -5,7 +5,7 @@ import std/json
 import std/os
 
 import nimcorpora/install
-import private/common
+import nimcorpora/private/common
 
 
 type

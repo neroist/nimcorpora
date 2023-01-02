@@ -8,7 +8,7 @@ import std/os
 import zippy/ziparchives
 import fab
 
-import ../private/common
+import private/common
 
 
 proc installCorporaData*(dir: string = getCurrentDir(); output: bool = on) =
