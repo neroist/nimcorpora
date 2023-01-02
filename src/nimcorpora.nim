@@ -11,17 +11,18 @@ type
 
 func newCorpora*(): Corpora =
   ## Get a new Corpora object. Needed to access Corpora data.
-  ## Instead of this proc, you could also do `new Corpora` instead.
+  ## Instead of this proc, you could also use `new Corpora` instead.
 
   new result
+
+let data = (when defined(release): getCurrentDir() else: currentSourcePath()).parentDir / "data"
+## location of Corpora's data
 
 # --- categories ---
 
 proc getCategories*(_: Corpora): seq[string] =
   ## Get all categories (directories) in the Corpora data.
-  let data = "../data"
-
-  for dir in walkDirRec("../data", yieldFilter={pcDir}, relative=true):
+  for dir in walkDirRec(data, yieldFilter={pcDir}, relative=true):
     # if a dir has no json files in it, do not include it in the result
     if collect(for file in walkFiles(fmt"{data / dir}/*.json"): file).len != 0:
       result.add dir
@@ -36,12 +37,12 @@ proc categories*(_: Corpora): seq[string] =
 proc getSubcategories*(_: Corpora): seq[string] =
   ## Get all subcategories (a.k.a the json files in the data) under all categories
 
-  for file in walkDirRec("../data"): result.add file.tailTailDir().changeFileExt("")
+  for file in walkDirRec(data): result.add file.tailTailDir().changeFileExt("")
 
 proc getSubcategories*(_: Corpora; category: string): seq[string] =
   ## Get all subcategories under `category`
 
-  for file in walkDirRec("../data" / category): result.add file.tailTailDir().changeFileExt("")
+  for file in walkDirRec(data / category): result.add file.tailTailDir().changeFileExt("")
 
 proc getSubcategories*(_: Corpora; categories: openArray[string]): seq[seq[string]] =
   ## Get all subcategories under `categories`
@@ -58,7 +59,7 @@ proc subcategories*(_: Corpora): seq[string] =
 proc getFile*(_: Corpora; path: string): JsonNode =
   ## Get a file by its path. Input `path` as subcategory (e.x "animals/ant_anatomy")
 
-  parseFile("../data" / path.changeFileExt(".json"))
+  parseFile(data / path.changeFileExt(".json"))
 
 proc getFile*(_: Corpora; category, subcategory: string): JsonNode =
   ## Get a file by its category and subcategory
