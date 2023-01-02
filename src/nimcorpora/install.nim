@@ -62,16 +62,16 @@ proc installCorporaData*(dir: string = getCurrentDir(); output: bool = on) =
         # we use "file.tailDir" to get rid of the unnecessary
         # "corpora-master" dir in the file path
 
-        # we need to create directories so we can write the extracted
-        # data to them later. `writeFile` throws an error when we don't
+        # we need to create directories so we can write the extracted data
+        # to them later. Also, `writeFile` throws an error when we don't
 
         # creates only the data/... directories
-        let dir = splitPath(file.tailDir).head
+        let dir = parentDir file.tailDir
 
         if not dirExists(dir):
           createDir(dir)
 
-        writeFile(file.tailTailDir, reader.extractFile(file))
+        writeFile(file.tailDir, reader.extractFile(file))
         #good("Extracted " & file.tailDir)
 
 when isMainModule:
