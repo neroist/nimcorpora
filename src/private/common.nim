@@ -1,6 +1,9 @@
 import std/os
 
-func tailTailDir*(dir: string): string {.inline.} = dir.tailDir.tailDir
+
+# we use this template to make nimcorpora GC safe
+template setDataVar*: untyped =
+  let data {.inject.} = (when defined(release): getCurrentDir() else: currentSourcePath()).parentDir / "data"
 
 template withDir*(dir: string, body: untyped): untyped =
   let cwd = getCurrentDir()

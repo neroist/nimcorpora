@@ -1,10 +1,12 @@
 import std/strformat
+import std/strutils
 import std/sugar
 import std/json
 import std/os
 
 import nimcorpora/install
 import private/common
+
 
 type
   Corpora* = ref object
@@ -15,12 +17,12 @@ func newCorpora*(): Corpora =
 
   new result
 
-let data = (when defined(release): getCurrentDir() else: currentSourcePath()).parentDir / "data"
-## location of Corpora's data
 
 # --- categories ---
 
 proc getCategories*(_: Corpora): seq[string] =
+  setDataVar()
+
   ## Get all categories (directories) in the Corpora data.
   for dir in walkDirRec(data, yieldFilter={pcDir}, relative=true):
     # if a dir has no json files in it, do not include it in the result
@@ -36,13 +38,17 @@ proc categories*(_: Corpora): seq[string] =
 
 proc getSubcategories*(_: Corpora): seq[string] =
   ## Get all subcategories (a.k.a the json files in the data) under all categories
+  setDataVar()
 
-  for file in walkDirRec(data): result.add file.tailTailDir().changeFileExt("")
+  for file in walkDirRec(data): 
+    result.add file.split(DirSep)[^2..^1].join($DirSep).changeFileExt("")
 
 proc getSubcategories*(_: Corpora; category: string): seq[string] =
   ## Get all subcategories under `category`
+  setDataVar()
 
-  for file in walkDirRec(data / category): result.add file.tailTailDir().changeFileExt("")
+  for file in walkDirRec(data / category): 
+    result.add file.split(DirSep)[^2..^1].join($DirSep).changeFileExt("")
 
 proc getSubcategories*(_: Corpora; categories: openArray[string]): seq[seq[string]] =
   ## Get all subcategories under `categories`
@@ -58,6 +64,7 @@ proc subcategories*(_: Corpora): seq[string] =
 
 proc getFile*(_: Corpora; path: string): JsonNode =
   ## Get a file by its path. Input `path` as subcategory (e.x "animals/ant_anatomy")
+  setDataVar()
 
   parseFile(data / path.changeFileExt(".json"))
 
@@ -74,7 +81,8 @@ proc getFiles*(_: Corpora; paths: openArray[string]): seq[JsonNode] =
 proc getFiles*(_: Corpora; category: string): seq[JsonNode] =
   ## Get all files under `category`
 
-  for subcategory in _.getSubcategories(category): result.add _.getFile(subcategory)
+  for subcategory in _.getSubcategories(category): 
+    result.add _.getFile(subcategory)
 
 proc getFilesByCategories*(_: Corpora; categories: openArray[string]): seq[seq[JsonNode]] =
   ## Get all files under `categories`.

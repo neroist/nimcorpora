@@ -10,6 +10,7 @@ import fab
 
 import ../private/common
 
+
 proc installCorporaData*(dir: string = getCurrentDir(); output: bool = on) =
   ## Installs Corpora data into `dir`. `output` control's whether or not to 
   ## display output. `false` for no output, `true` for output
