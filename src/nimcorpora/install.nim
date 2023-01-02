@@ -10,6 +10,8 @@ import fab
 
 template withDir(dir: string, body: untyped): untyped =
   let cwd = getCurrentDir()
+  if not dirExists(dir): createDir(dir)
+
   setCurrentDir dir
 
   body
