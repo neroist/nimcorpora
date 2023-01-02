@@ -8,6 +8,8 @@ import std/os
 import zippy/ziparchives
 import fab
 
+import ../private/common
+
 template withDir(dir: string, body: untyped): untyped =
   let cwd = getCurrentDir()
   if not dirExists(dir): createDir(dir)
@@ -69,7 +71,7 @@ proc installCorporaData*(dir: string = getCurrentDir(); output: bool = on) =
         if not dirExists(dir):
           createDir(dir)
 
-        writeFile(file.tailDir, reader.extractFile(file))
+        writeFile(file.tailTailDir, reader.extractFile(file))
         #good("Extracted " & file.tailDir)
 
 when isMainModule:

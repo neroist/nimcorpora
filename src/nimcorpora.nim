@@ -2,12 +2,10 @@ import std/json
 import std/os
 
 import nimcorpora/install
+import private/common
 
 type
   Corpora* = ref object
-
-func tailTailDir(dir: string): string {.inline.} = dir.tailDir.tailDir
-
 
 proc newCorpora*(): Corpora =
   ## Get a new Corpora object. Needed to access Corpora data.
