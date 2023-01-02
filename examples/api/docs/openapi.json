@@ -1,0 +1,125 @@
+{
+  "openapi": "3.1.0",
+  "swagger": "2.0",
+
+  "info": {
+    "title": "Corpora API",
+    "summary": "An API for accessing Corpora data. This project is only an example for using nimcorpora.",
+    "license": {
+      "name": "MIT",
+      "url": "https://www.mit-license.org"
+    },
+    "version": "0.1.0"
+  },
+
+  "paths": {
+    "/get/{path}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "required": true,
+            "example": "animals/cats",
+            "schema": {
+              "type": "string"
+            },
+            "style": "simple"
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Content of `{path}` in Corpora's data directory. The file extension is optional.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+
+          "500": {
+            "description": "500 error. Probably because of an invalid `{path}`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/index": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "A index of Corpora's data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/directories": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "All directories in Corpora's data which hold data (Json files)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/dirs": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Alias for `/directories`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/files": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "All JSON files in Corpora's data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
