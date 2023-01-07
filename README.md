@@ -4,8 +4,12 @@ A Nim interface for Darius Kazemi's [Corpora](https://github.com/dariusk/corpora
 Inspired by [pycorpora](https://github.com/aparrish/pycorpora).
 
 ## Installation 
-Since at the moment nimcorpora is not on nimble you can install it by its Github or Git link:
+Install via:
+```
+nimble install nimcorpora
+```
 
+You can also install by github and git link like so:
 ```
 nimble install https://github.com/neroist/nimcorpora
 ```
