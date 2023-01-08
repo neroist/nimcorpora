@@ -12,10 +12,11 @@ skipDirs      = @["examples", "docs"]
 
 after install:
   echo "\nInstalling Corpora data..."
-  selfExec"r ./nimcorpora/install.nim"
+  selfExec "r ./nimcorpora/install.nim"
+
 
 # Dependencies
 
-requires "nim >= 1.6.10"
+requires "nim >= 1.4.0"
 requires "zippy"
 requires "fab"
