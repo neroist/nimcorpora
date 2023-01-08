@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.1.0"
+version       = "0.1.1"
 author        = "Jasmine"
 description   = "A Nim interface for Darius Kazemi's Corpora Project."
 license       = "GPL-3.0-only"
