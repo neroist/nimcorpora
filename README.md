@@ -1,4 +1,4 @@
-# nimcorpora
+# nimcorpora [![nimble](https://raw.githubusercontent.com/yglukhov/nimble-tag/master/nimble.png)](https://nimble.directory/pkg/nimcorpora)
 A Nim interface for Darius Kazemi's [Corpora](https://github.com/dariusk/corpora) project. - [**Documentation**](https://neroist.github.io/nimcorpora/nimcorpora.html)
 
 Inspired by [pycorpora](https://github.com/aparrish/pycorpora).
